@@ -6,48 +6,48 @@ class Case extends Model {
         return CASE;
     }
 
-    static get relationMappings(){
-        const {LookuplistValue, LOOKUPLISTVALUE, Applicant, APPLICANT, Organization, ORGANIZATION, User, USER } = require("./");
+    static get relationMappings() {
+        const { LookuplistValue, LOOKUPLISTVALUE, Applicant, APPLICANT, Organization, ORGANIZATION, User, USER } = require("./");
 
-        return{
-            jobType:{
+        return {
+            jobType: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: LookuplistValue,
-                join:{
-                    from:`${LOOKUPLISTVALUE}.id`,
-                    to:`${CASE}.jobTypeId`
+                join: {
+                    from: `${CASE}.jobTypeId`,
+                    to: `${LOOKUPLISTVALUE}.id`
                 }
             },
             applicant: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Applicant,
-                join:{
-                    from:`${APPLICANT}.id`,
-                    to:`${CASE}.applicantId`
+                join: {
+                    from: `${CASE}.applicantId`,
+                    to: `${APPLICANT}.id`
                 }
             },
-            agency:{
+            agency: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Organization,
                 join: {
-                    from:`${ORGANIZATION}.id`,
-                    to:`${CASE}.agencyId`
+                    from: `${CASE}.agencyId`,
+                    to: `${ORGANIZATION}.id`
                 }
             },
-            ingestigator:{
+            ingestigator: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
-                join:{
-                    from:`${USER}.id`,
-                    to:`${CASE}.investigatorId`
+                join: {
+                    from: `${CASE}.investigatorId`,
+                    to: `${USER}.id`
                 }
             },
-            caseStatusType:{
+            caseStatusType: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: LookuplistValue,
-                join:{
-                    from:`${LOOKUPLISTVALUE}.id`,
-                    to:`${CASE}.caseStatusTypeId`
+                join: {
+                    from: `${CASE}.caseStatusTypeId`,
+                    to: `${LOOKUPLISTVALUE}.id`
                 }
             }
         }

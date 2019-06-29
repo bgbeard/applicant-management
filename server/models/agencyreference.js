@@ -6,34 +6,34 @@ class AgencyReference extends Model {
         return AGENCYREFERENCE;
     }
 
-    static get relationMappings(){
-        const { LookuplistValue, LOOKUPLISTVALUE, 
-            Applicant, APPLICANT, 
-            Organization, ORGANIZATION} = require(".");
+    static get relationMappings() {
+        const { LookuplistValue, LOOKUPLISTVALUE,
+            Applicant, APPLICANT,
+            Organization, ORGANIZATION } = require(".");
 
-        return{
+        return {
             agencyreferencetype: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: LookuplistValue,
                 join: {
-                    from: `${LOOKUPLISTVALUE}.id`,
-                    to: `${AGENCYREFERENCE}.agencyreferencetypeId`
+                    from: `${AGENCYREFERENCE}.agencyreferencetypeId`,
+                    to: `${LOOKUPLISTVALUE}.id`
                 }
             },
             applicant: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Applicant,
                 join: {
-                    from: `${APPLICANT}.id`,
-                    to: `${AGENCYREFERENCE}.applicantId`
+                    from: `${AGENCYREFERENCE}.applicantId`,
+                    to: `${APPLICANT}.id`
                 }
             },
             agency: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Organization,
                 join: {
-                    from: `${ORGANIZATION}.id`,
-                    to: `${AGENCYREFERENCE}.agencyId`
+                    from: `${AGENCYREFERENCE}.agencyId`,
+                    to: `${ORGANIZATION}.id`
                 }
             }
         }

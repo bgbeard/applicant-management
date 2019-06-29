@@ -22,4 +22,4 @@ class User extends Model {
     }
 }
 
-module.exports = { User, USERS }
+module.exports = { User, USER }

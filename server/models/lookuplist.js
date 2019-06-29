@@ -6,16 +6,16 @@ class Lookuplist extends Model {
         return LOOKUPLIST;
     }
 
-    static get relationMappings(){
-        const { LookuplistValue, LOOKUPLISTVALUE} = require("./");
+    static get relationMappings() {
+        const { LookuplistValue, LOOKUPLISTVALUE } = require("./");
 
-        return{
-            lookuplistValue:{
+        return {
+            lookuplistValues: {
                 relation: Model.HasManyRelation,
                 modelClass: LookuplistValue,
-                join:{
-                    from:`${LOOKUPLIST}.id`,
-                    to:`${LOOKUPLISTVALUE}.lookuplistId`
+                join: {
+                    from: `${LOOKUPLIST}.id`,
+                    to: `${LOOKUPLISTVALUE}.lookuplistId`
                 }
             }
         }
