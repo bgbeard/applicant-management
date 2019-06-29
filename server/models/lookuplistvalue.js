@@ -6,60 +6,60 @@ class LookuplistValue extends Model {
         return LOOKUPLISTVALUE;
     }
 
-    static get relationMappings(){
-        const { Case, CASE, 
-            AgencyReference, AGENCYREFERENCE, 
-            PersonalReference, PERSONALREFERENCE, 
-            Organization, ORGANIZATION, 
-            Loouplist, LOOKUPLIST} = require("./");
+    static get relationMappings() {
+        const { Case, CASE,
+            AgencyReference, AGENCYREFERENCE,
+            PersonalReference, PERSONALREFERENCE,
+            Organization, ORGANIZATION,
+            Lookuplist, LOOKUPLIST } = require("./");
 
-        return{
-            jobTypes:{
+        return {
+            jobTypes: {
                 relation: Model.HasManyRelation,
                 modelClass: Case,
-                join:{
-                    from:`${LOOUPLISTVALUE}.id`,
-                    to:`${CASE}.jobTypeId`
+                join: {
+                    from: `${LOOKUPLISTVALUE}.id`,
+                    to: `${CASE}.jobTypeId`
                 }
             },
-            caseStatusTypes:{
+            caseStatusTypes: {
                 relation: Model.HasManyRelation,
                 modelClass: Case,
-                join:{
-                    from:`${LOOUPLISTVALUE}.id`,
-                    to:`${CASE}.statusTypeId`
+                join: {
+                    from: `${LOOKUPLISTVALUE}.id`,
+                    to: `${CASE}.statusTypeId`
                 }
             },
-            agencyReferenceTypes:{
+            agencyReferenceTypes: {
                 relation: Model.HasManyRelation,
                 modelClass: AgencyReference,
-                join:{
-                    from:`${LOOUPLISTVALUE}.id`,
-                    to:`${AGENCYREFERENCE}.agencyReferenceTypeId`
+                join: {
+                    from: `${LOOKUPLISTVALUE}.id`,
+                    to: `${AGENCYREFERENCE}.agencyReferenceTypeId`
                 }
             },
-            organizationTypes:{
+            organizationTypes: {
                 relation: Model.HasManyRelation,
                 modelClass: Organization,
-                join:{
-                    from:`${LOOUPLISTVALUE}.id`,
-                    to:`${ORGANIZATION}.organizationTypeId`
+                join: {
+                    from: `${LOOKUPLISTVALUE}.id`,
+                    to: `${ORGANIZATION}.organizationTypeId`
                 }
             },
-            personalReferenceTypes:{
+            personalReferenceTypes: {
                 relation: Model.HasManyRelation,
                 modelClass: PersonalReference,
-                join:{
-                    from:`${LOOUPLISTVALUE}.id`,
-                    to:`${PERSONALREFERENCE}.personalReferenceTypeId`
+                join: {
+                    from: `${LOOKUPLISTVALUE}.id`,
+                    to: `${PERSONALREFERENCE}.personalReferenceTypeId`
                 }
             },
-            lookuplist:{
+            lookuplist: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Lookuplist,
-                join:{
-                    from:`${LOOUPLIST}.id`,
-                    to:`${LOOKUPLISTVALUE}.lookuplistId`
+                join: {
+                    from: `${LOOKUPLISTVALUE}.lookuplistId`,
+                    to: `${LOOKUPLIST}.id`
                 }
             }
         }

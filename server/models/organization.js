@@ -6,42 +6,42 @@ class Organization extends Model {
         return ORGANIZATION;
     }
 
-    static get relationMappings(){
-        const{ LookuplistValue, LOOKUPLISTVALUE,
+    static get relationMappings() {
+        const { LookuplistValue, LOOKUPLISTVALUE,
             AgencyReference, AGENCYREFERENCE,
             Case, CASE } = require("./");
 
-        return{
-            parentOrganization:{
+        return {
+            parentOrganization: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Organization,
                 join: {
-                    from:`${ORGANIZATION}.id`,
-                    to:`${ORGANIZATION}.parentOrganizationId`
+                    from: `${ORGANIZATION}.id`,
+                    to: `${ORGANIZATION}.parentOrganizationId`
                 }
             },
-            organizationType:{
+            organizationType: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: LookuplistValue,
                 join: {
-                    from:`${LOOKUPLISTVALUE}.id`,
-                    to:`${ORGANIZATION}.organizationTypeId`
+                    from: `${ORGANIZATION}.organizationTypeId`,
+                    to: `${LOOKUPLISTVALUE}.id`
                 }
             },
-            agencyReferences:{
+            agencyReferences: {
                 relation: Model.HasManyRelation,
                 modelClass: AgencyReference,
                 join: {
-                    from:`${ORGANIZATION}.id`,
-                    to:`${AGENCYREFERENCE}.organizationId`
+                    from: `${ORGANIZATION}.id`,
+                    to: `${AGENCYREFERENCE}.organizationId`
                 }
             },
-            cases:{
+            cases: {
                 relation: Model.HasManyRelation,
                 modelClass: Case,
                 join: {
-                    from:`${ORGANIZATION}.id`,
-                    to:`${CASE}.organizationId`
+                    from: `${ORGANIZATION}.id`,
+                    to: `${CASE}.organizationId`
                 }
             }
         }

@@ -6,25 +6,25 @@ class PersonalReference extends Model {
         return PERSONALREFERENCE;
     }
 
-    static get relationMappings(){
+    static get relationMappings() {
         const { Applicant, APPLICANT,
             LookuplistValue, LOOKUPLISTVALUE } = require("./");
 
-        return{
-            applicant:{
+        return {
+            applicant: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Applicant,
-                join:{
-                    from:`${APPLICANTS}.id`,
-                    to:`${PERSONALREFERENCE}.applicantId`
+                join: {
+                    from: `${PERSONALREFERENCE}.applicantId`,
+                    to: `${APPLICANT}.id`
                 }
             },
-            personalReferencetype:{
+            personalReferencetype: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: LookuplistValue,
-                join:{
-                    from:`${LOOKUPLISTVALUE}.id`,
-                    to:`${PERSONALREFERENCE}.personalReferenceTypeId`
+                join: {
+                    from: `${PERSONALREFERENCE}.personalReferenceTypeId`,
+                    to: `${LOOKUPLISTVALUE}.id`
                 }
             }
         }
