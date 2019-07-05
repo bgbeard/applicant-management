@@ -1,4 +1,4 @@
-const { User } = require('../../../models')
+const { User } = require('../../models')
 
 const users = [
   { fname: 'Bryan', lname: 'Beard', email: 'beardbryan@gmail.com', phone: '(949) 677-3691' },
@@ -7,10 +7,9 @@ const users = [
 
 const insertUser = async ({ fname, lname, email, phone }) => {
   try {
-    await User.query().del()
     await User.query().insert({ fname, lname, email, phone })
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 }
 

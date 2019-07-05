@@ -1,4 +1,4 @@
-const { Applicant } = require('../../../models')
+const { Applicant } = require('../../models')
 
 const applicants = [
   { fname: 'Jose', lname: 'Vasquez', email: 'jvasquez@gmail.com', phone: '(213) 897-9437', ss: '123-45-6789', dob: '1988/01/12', address1: '123 Right Side Way', address2: null, city: 'Santa Ana', state: 'CA', zip: '91304' },
@@ -7,10 +7,9 @@ const applicants = [
 
 const insertApplicant = async ({ fname, lname, email, phone, ss, dob, address1, address2, city, state, zip }) => {
   try {
-    await Applicant.query().del()
     await Applicant.query().insert({ fname, lname, email, phone, ss, dob, address1, address2, city, state, zip })
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 }
 

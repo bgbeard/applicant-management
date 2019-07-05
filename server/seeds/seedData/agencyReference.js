@@ -1,4 +1,4 @@
-const { AgencyReference, LookuplistValue, Applicant, Organization } = require('../../../models')
+const { AgencyReference, LookuplistValue, Applicant, Organization } = require('../../models')
 
 const agencyReferences = [
   { agencyReferenceType: 'applied', applicant: 'Vasquez', agency: 'Irvine Police Department', appliedPosition: 'Police Officer', appliedInvestigator: 'Patrick Star', appliedDate: '2019/04/18' },
@@ -9,7 +9,6 @@ const agencyReferences = [
 
 const insertAgencyReference = async ({ agencyReferenceType, applicant, agency, appliedPosition, appliedInvestigator, appliedDate }) => {
   try {
-    await AgencyReference.query().del()
     let agencyReferenceTypeId = await LookuplistValue.query().findOne({ value: agencyReferenceType }).select('id')
     agencyReferenceTypeId = agencyReferenceTypeId.id
     let agencyId = await Organization.query().findOne({ name: agency }).select('id')
@@ -18,7 +17,7 @@ const insertAgencyReference = async ({ agencyReferenceType, applicant, agency, a
     applicantId = applicantId.id
     await AgencyReference.query().insert({ agencyReferenceTypeId, applicantId, agencyId, appliedPosition, appliedInvestigator, appliedDate })
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 }
 

@@ -1,13 +1,12 @@
-const { Case, LookuplistValue, Applicant, Organization, User } = require('../../../models')
+const { Case, LookuplistValue, Applicant, Organization, User } = require('../../models')
 
 const cases = [
   { jobType: 'sworn', applicant: 'Vasquez', agency: 'Irvine Police Department', investigator: 'Greg', caseStatus: 'open', dueDate: '2019/07/04', jobName: 'Police Officer' },
-  { jobType: 'civilian', applicant: 'Park', agency: 'Santa Ana Police Department', investigator: 'Greg', caseStatus: 'closed', dueDate: '2019/06/18', jobName: 'Safety Inspector' }
+  { jobType: 'civilian', applicant: 'Park', agency: 'Santa Ana Police Department', investigator: 'Greg', caseStatus: 'complete', dueDate: '2019/06/18', jobName: 'Safety Inspector' }
 ]
 
 const insertCase = async ({ jobType, applicant, agency, investigator, caseStatus, jobName, dueDate }) => {
   try {
-    await Case.query().del()
     let jobTypeId = await LookuplistValue.query().findOne({ value: jobType }).select('id')
     jobTypeId = jobTypeId.id
     let applicantId = await Applicant.query().findOne({ lname: applicant }).select('id')
@@ -20,7 +19,7 @@ const insertCase = async ({ jobType, applicant, agency, investigator, caseStatus
     caseStatusTypeId = caseStatusTypeId.id
     await Case.query().insert({ jobTypeId, applicantId, agencyId, investigatorId, caseStatusTypeId, jobName, dueDate })
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 }
 

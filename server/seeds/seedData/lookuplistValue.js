@@ -1,4 +1,4 @@
-const { LookuplistValue, Lookuplist } = require('../../../models')
+const { LookuplistValue, Lookuplist } = require('../../models')
 
 const lookuplistValues = [
   { lookuplist: 'caseStatusType', value: 'open' },
@@ -15,12 +15,9 @@ const lookuplistValues = [
 
 const insertLookuplistValue = async ({ lookuplist, value }) => {
   try {
-    await LookuplistValue.query().del()
     let lookuplistId = await Lookuplist.query().findOne({ name: lookuplist }).select('id')
     lookuplistId = lookuplistId.id
-    // console.log(lookuplistId)
-    const result = await LookuplistValue.query().insert({ lookuplistId, value })
-    // console.log(result)
+    await LookuplistValue.query().insert({ lookuplistId, value })
   } catch (err) {
     console.error(err)
   }
