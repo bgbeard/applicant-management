@@ -1,4 +1,4 @@
-const { PersonalReference, Applicant, LookuplistValue } = require('../../../models')
+const { PersonalReference, Applicant, LookuplistValue } = require('../../models')
 
 const personalReferences = [
   { applicant: 'Vasquez', personalReferenceType: 'personal', title: null, fname: 'Peter', lname: 'Parker', email: 'slinger@web.com', 'phone': null, relationship: 'friend', company: 'Daily Bugle', address1: null, address2: null, city: null, state: null, zip: null },
@@ -8,7 +8,6 @@ const personalReferences = [
 
 const insertPersonalReference = async ({ applicant, personalReferenceType, title, fname, lname, email, phone, relationship, company, address1, address2, city, state, zip }) => {
   try {
-    await PersonalReference.query().del()
     let applicantId = await Applicant.query().findOne({ lname: applicant }).select('id')
     applicantId = applicantId.id
     let personalReferenceTypeId = await LookuplistValue.query().findOne({ value: personalReferenceType }).select('id')

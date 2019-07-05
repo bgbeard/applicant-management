@@ -175,7 +175,7 @@ const schemas = [
         .inTable(LOOKUPLISTVALUE)
         .index()
       table.date('dueDate')
-      table.date('jobName')
+      table.string('jobName')
     }
   }
 ]

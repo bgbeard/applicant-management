@@ -1,4 +1,4 @@
-const { Organization, LookuplistValue } = require('../../../models')
+const { Organization, LookuplistValue } = require('../../models')
 
 const organizations = [
   { organizationType: 'Police Department', parentOrganizationId: null, name: 'Irvine Police Department', address1: '1 Horsey Cop Lane', address2: null, city: 'Irvine', state: 'CA', zip: '92606' },
@@ -8,12 +8,11 @@ const organizations = [
 
 const insertOrganization = async ({ organizationType, parentOrganizationId, name, address1, address2, city, state, zip }) => {
   try {
-    await Organization.query().del()
     let organizationTypeId = await LookuplistValue.query().findOne({ value: organizationType }).select('id')
     organizationTypeId = organizationTypeId.id
     await Organization.query().insert({ organizationTypeId, parentOrganizationId, name, address1, address2, city, state, zip })
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 }
 

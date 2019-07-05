@@ -1,4 +1,4 @@
-const { Lookuplist } = require('../../../models')
+const { Lookuplist } = require('../../models')
 
 const lookuplists = [
   { name: 'caseStatusType' },
@@ -10,7 +10,6 @@ const lookuplists = [
 
 const insertLookuplist = async ({ name }) => {
   try {
-    await Lookuplist.query().del()
     await Lookuplist.query().insert({ name: name })
   } catch (err) {
     console.error(err)
