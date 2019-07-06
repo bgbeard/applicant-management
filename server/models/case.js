@@ -1,13 +1,14 @@
-const Model = require('./baseModel')
-const CASE = 'case'
+import BaseModel from './baseModel'
+import { CASE } from '../migrations/20190626204616_initialize_schema'
 
-class Case extends Model {
-  static get tableName () {
+export default class Case extends BaseModel {
+  static get tableName() {
     return CASE
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE, Applicant, APPLICANT, Organization, ORGANIZATION, User, USER } = require('./')
+  static get relationMappings() {
+    const { LookuplistValue, Applicant, Organization, User } = require('./')
+    const { LOOKUPLISTVALUE, APPLICANT, ORGANIZATION, USER } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       jobType: {
@@ -53,5 +54,3 @@ class Case extends Model {
     }
   }
 }
-
-module.exports = { Case, CASE }

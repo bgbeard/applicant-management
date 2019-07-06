@@ -14,7 +14,7 @@ const insertPersonalReference = async ({ applicant, personalReferenceType, title
     personalReferenceTypeId = personalReferenceTypeId.id
     await PersonalReference.query().insert({ applicantId, personalReferenceTypeId, title, fname, lname, email, phone, relationship, company, address1, address2, city, state, zip })
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
 }
 

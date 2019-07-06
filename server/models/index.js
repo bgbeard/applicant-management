@@ -1,10 +1,8 @@
-module.exports = {
-  ...require('./agencyreference'),
-  ...require('./applicant'),
-  ...require('./case'),
-  ...require('./lookuplist'),
-  ...require('./lookuplistvalue'),
-  ...require('./organization'),
-  ...require('./personalreference'),
-  ...require('./user')
-}
+export { default as AgencyReference } from './agencyreference'
+export { default as Applicant } from './applicant'
+export { default as Case } from './case'
+export { default as Lookuplist } from './lookuplist'
+export { default as LookuplistValue } from './lookuplistvalue'
+export { default as Organization } from './organization'
+export { default as PersonalReference } from './personalreference'
+export { default as User } from './user'

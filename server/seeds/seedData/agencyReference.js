@@ -17,7 +17,7 @@ const insertAgencyReference = async ({ agencyReferenceType, applicant, agency, a
     applicantId = applicantId.id
     await AgencyReference.query().insert({ agencyReferenceTypeId, applicantId, agencyId, appliedPosition, appliedInvestigator, appliedDate })
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
 }
 

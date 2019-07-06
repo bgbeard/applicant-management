@@ -9,7 +9,7 @@ const insertApplicant = async ({ fname, lname, email, phone, ss, dob, address1, 
   try {
     await Applicant.query().insert({ fname, lname, email, phone, ss, dob, address1, address2, city, state, zip })
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
 }
 

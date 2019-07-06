@@ -1,15 +1,18 @@
-const Model = require('./baseModel')
-const ORGANIZATION = 'organization'
+import BaseModel from './baseModel'
+import { ORGANIZATION } from '../migrations/20190626204616_initialize_schema'
 
-class Organization extends Model {
-  static get tableName () {
+export default class Organization extends BaseModel {
+  static get tableName() {
     return ORGANIZATION
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE,
-      AgencyReference, AGENCYREFERENCE,
-      Case, CASE } = require('./')
+  static get relationMappings() {
+    const { LookuplistValue,
+      AgencyReference,
+      Case } = require('./')
+    const { LOOKUPLISTVALUE,
+      AGENCYREFERENCE,
+      CASE } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       parentOrganization: {
@@ -47,5 +50,3 @@ class Organization extends Model {
     }
   }
 }
-
-module.exports = { Organization, ORGANIZATION }

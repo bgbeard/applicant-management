@@ -12,7 +12,7 @@ const insertOrganization = async ({ organizationType, parentOrganizationId, name
     organizationTypeId = organizationTypeId.id
     await Organization.query().insert({ organizationTypeId, parentOrganizationId, name, address1, address2, city, state, zip })
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
 }
 

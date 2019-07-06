@@ -1,11 +1,11 @@
-const USER = 'user'
-const LOOKUPLIST = 'lookuplist'
-const LOOKUPLISTVALUE = 'lookuplistvalue'
-const APPLICANT = 'applicant'
-const PERSONALREFERENCE = 'personalreference'
-const ORGANIZATION = 'organization'
-const AGENCYREFERENCE = 'agencyreference'
-const CASE = 'case'
+export const USER = 'user'
+export const LOOKUPLIST = 'lookuplist'
+export const LOOKUPLISTVALUE = 'lookuplistvalue'
+export const APPLICANT = 'applicant'
+export const PERSONALREFERENCE = 'personalreference'
+export const ORGANIZATION = 'organization'
+export const AGENCYREFERENCE = 'agencyreference'
+export const CASE = 'case'
 
 exports.up = async (knex) => {
   try {

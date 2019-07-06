@@ -1,13 +1,14 @@
-const Model = require('./baseModel')
-const LOOKUPLIST = 'lookuplist'
+import BaseModel from './baseModel'
+import { LOOKUPLIST } from '../migrations/20190626204616_initialize_schema'
 
-class Lookuplist extends Model {
-  static get tableName () {
+export default class Lookuplist extends BaseModel {
+  static get tableName() {
     return LOOKUPLIST
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE } = require('./')
+  static get relationMappings() {
+    const { LookuplistValue } = require('./')
+    const { LOOKUPLISTVALUE } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       lookuplistValues: {
@@ -21,5 +22,3 @@ class Lookuplist extends Model {
     }
   }
 }
-
-module.exports = { Lookuplist, LOOKUPLIST }

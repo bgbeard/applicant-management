@@ -1,15 +1,14 @@
-const Model = require('./baseModel')
-const APPLICANT = 'applicant'
+import BaseModel from './baseModel'
+import { APPLICANT } from '../migrations/20190626204616_initialize_schema'
 
-class Applicant extends Model {
-  static get tableName () {
+export default class Applicant extends BaseModel {
+  static get tableName() {
     return APPLICANT
   }
 
-  static get relationMappings () {
-    const { Case, CASE,
-      PersonalReference, PERSONALREFERENCE,
-      AgencyReference, AGENCYREFERENCE } = require('./')
+  static get relationMappings() {
+    const { Case, PersonalReference, AgencyReference } = require('./')
+    const { CASE, PERSONALREFERENCE, AGENCYREFERENCE } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       cases: {
@@ -39,5 +38,3 @@ class Applicant extends Model {
     }
   }
 }
-
-module.exports = { Applicant, APPLICANT }

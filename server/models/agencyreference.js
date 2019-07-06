@@ -1,15 +1,14 @@
-const Model = require('./baseModel')
-const AGENCYREFERENCE = 'agencyreference'
+import BaseModel from './baseModel'
+import { AGENCYREFERENCE } from '../migrations/20190626204616_initialize_schema'
 
-class AgencyReference extends Model {
-  static get tableName () {
+export default class AgencyReference extends BaseModel {
+  static get tableName() {
     return AGENCYREFERENCE
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE,
-      Applicant, APPLICANT,
-      Organization, ORGANIZATION } = require('.')
+  static get relationMappings() {
+    const { LookuplistValue, Applicant, Organization } = require('.')
+    const { LOOKUPLISTVALUE, APPLICANT, ORGANIZATION } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       agencyreferencetype: {
@@ -39,5 +38,3 @@ class AgencyReference extends Model {
     }
   }
 }
-
-module.exports = { AgencyReference, AGENCYREFERENCE }

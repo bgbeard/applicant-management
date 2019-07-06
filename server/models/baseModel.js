@@ -1,6 +1,4 @@
-const { Model } = require('objection')
-const { DbErrors } = require('objection-db-errors')
+import { Model } from 'objection'
+import { DbErrors } from 'objection-db-errors'
 
-class BaseModel extends DbErrors(Model) { }
-
-module.exports = BaseModel
+export default class BaseModel extends DbErrors(Model) { }

@@ -1,17 +1,22 @@
-const Model = require('./baseModel')
-const LOOKUPLISTVALUE = 'lookuplistvalue'
+import BaseModel from './baseModel'
+import { LOOKUPLISTVALUE } from '../migrations/20190626204616_initialize_schema'
 
-class LookuplistValue extends Model {
-  static get tableName () {
+export default class LookuplistValue extends BaseModel {
+  static get tableName() {
     return LOOKUPLISTVALUE
   }
 
-  static get relationMappings () {
-    const { Case, CASE,
-      AgencyReference, AGENCYREFERENCE,
-      PersonalReference, PERSONALREFERENCE,
-      Organization, ORGANIZATION,
-      Lookuplist, LOOKUPLIST } = require('./')
+  static get relationMappings() {
+    const { Case,
+      AgencyReference,
+      PersonalReference,
+      Organization,
+      Lookuplist } = require('./')
+    const { CASE,
+      AGENCYREFERENCE,
+      PERSONALREFERENCE,
+      ORGANIZATION,
+      LOOKUPLIST } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       jobTypes: {
@@ -65,5 +70,3 @@ class LookuplistValue extends Model {
     }
   }
 }
-
-module.exports = { LookuplistValue, LOOKUPLISTVALUE }

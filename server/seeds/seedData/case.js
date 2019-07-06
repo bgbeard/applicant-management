@@ -19,7 +19,7 @@ const insertCase = async ({ jobType, applicant, agency, investigator, caseStatus
     caseStatusTypeId = caseStatusTypeId.id
     await Case.query().insert({ jobTypeId, applicantId, agencyId, investigatorId, caseStatusTypeId, jobName, dueDate })
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
 }
 

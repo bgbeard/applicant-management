@@ -1,14 +1,16 @@
-const Model = require('./baseModel')
-const PERSONALREFERENCE = 'personalreference'
+import BaseModel from './baseModel'
+import { PERSONALREFERENCE } from '../migrations/20190626204616_initialize_schema'
 
-class PersonalReference extends Model {
-  static get tableName () {
+export default class PersonalReference extends BaseModel {
+  static get tableName() {
     return PERSONALREFERENCE
   }
 
-  static get relationMappings () {
-    const { Applicant, APPLICANT,
-      LookuplistValue, LOOKUPLISTVALUE } = require('./')
+  static get relationMappings() {
+    const { Applicant,
+      LookuplistValue } = require('./')
+    const { APPLICANT,
+      LOOKUPLISTVALUE } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       applicant: {
@@ -30,5 +32,3 @@ class PersonalReference extends Model {
     }
   }
 }
-
-module.exports = { PersonalReference, PERSONALREFERENCE }
