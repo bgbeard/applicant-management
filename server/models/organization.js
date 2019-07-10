@@ -1,15 +1,15 @@
-import BaseModel from './baseModel'
+import Model from './baseModel'
 import { ORGANIZATION } from '../migrations/20190626204616_initialize_schema'
 
-export default class Organization extends BaseModel {
+export default class Organization extends Model {
   static get tableName() {
     return ORGANIZATION
   }
 
   static get relationMappings() {
-    const { LookuplistValue,
-      AgencyReference,
-      Case } = require('./')
+    // const { LookuplistValue,
+    //   AgencyReference,
+    //   Case } = require('./')
     const { LOOKUPLISTVALUE,
       AGENCYREFERENCE,
       CASE } = require('../migrations/20190626204616_initialize_schema')
@@ -17,7 +17,7 @@ export default class Organization extends BaseModel {
     return {
       parentOrganization: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Organization,
+        modelClass: __dirname + '/organization',
         join: {
           from: `${ORGANIZATION}.id`,
           to: `${ORGANIZATION}.parentOrganizationId`
@@ -25,7 +25,7 @@ export default class Organization extends BaseModel {
       },
       organizationType: {
         relation: Model.BelongsToOneRelation,
-        modelClass: LookuplistValue,
+        modelClass: __dirname + '/lookuplistvalue',
         join: {
           from: `${ORGANIZATION}.organizationTypeId`,
           to: `${LOOKUPLISTVALUE}.id`
@@ -33,7 +33,7 @@ export default class Organization extends BaseModel {
       },
       agencyReferences: {
         relation: Model.HasManyRelation,
-        modelClass: AgencyReference,
+        modelClass: __dirname + '/agencyreference',
         join: {
           from: `${ORGANIZATION}.id`,
           to: `${AGENCYREFERENCE}.organizationId`
@@ -41,7 +41,7 @@ export default class Organization extends BaseModel {
       },
       cases: {
         relation: Model.HasManyRelation,
-        modelClass: Case,
+        modelClass: __dirname + '/case',
         join: {
           from: `${ORGANIZATION}.id`,
           to: `${CASE}.organizationId`

@@ -14,7 +14,7 @@ const read = (file) => {
     return result
 }
 
-const tabs = ['applicant', 'references']
+const tabs = ['applicant']
 
 module.exports = {
     read

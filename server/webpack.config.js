@@ -20,5 +20,8 @@ module.exports = {
   plugins: [
     new Dotenv()
   ],
-  target: 'node'
+  target: 'node',
+  externals: {
+    knex: 'commonjs knex'
+  }
 }

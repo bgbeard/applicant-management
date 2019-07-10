@@ -1,19 +1,19 @@
-import BaseModel from './baseModel'
+import Model from './baseModel'
 import { AGENCYREFERENCE } from '../migrations/20190626204616_initialize_schema'
 
-export default class AgencyReference extends BaseModel {
+export default class AgencyReference extends Model {
   static get tableName() {
     return AGENCYREFERENCE
   }
 
   static get relationMappings() {
-    const { LookuplistValue, Applicant, Organization } = require('.')
+    // const { LookuplistValue, Applicant, Organization } = require('.')
     const { LOOKUPLISTVALUE, APPLICANT, ORGANIZATION } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       agencyreferencetype: {
         relation: Model.BelongsToOneRelation,
-        modelClass: LookuplistValue,
+        modelClass: __dirname + '/lookuplistvalue',
         join: {
           from: `${AGENCYREFERENCE}.agencyReferenceTypeId`,
           to: `${LOOKUPLISTVALUE}.id`
@@ -21,7 +21,7 @@ export default class AgencyReference extends BaseModel {
       },
       applicant: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Applicant,
+        modelClass: __dirname + '/applicant',
         join: {
           from: `${AGENCYREFERENCE}.applicantId`,
           to: `${APPLICANT}.id`
@@ -29,7 +29,7 @@ export default class AgencyReference extends BaseModel {
       },
       agency: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Organization,
+        modelClass: __dirname + '/organization',
         join: {
           from: `${AGENCYREFERENCE}.agencyId`,
           to: `${ORGANIZATION}.id`
