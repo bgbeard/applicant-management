@@ -1,20 +1,19 @@
-const Model = require('./baseModel')
-const AGENCYREFERENCE = 'agencyreference'
+import Model from './baseModel'
+import { AGENCYREFERENCE } from '../migrations/20190626204616_initialize_schema'
 
-class AgencyReference extends Model {
-  static get tableName () {
+export default class AgencyReference extends Model {
+  static get tableName() {
     return AGENCYREFERENCE
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE,
-      Applicant, APPLICANT,
-      Organization, ORGANIZATION } = require('.')
+  static get relationMappings() {
+    // const { LookuplistValue, Applicant, Organization } = require('.')
+    const { LOOKUPLISTVALUE, APPLICANT, ORGANIZATION } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       agencyreferencetype: {
         relation: Model.BelongsToOneRelation,
-        modelClass: LookuplistValue,
+        modelClass: __dirname + '/lookuplistvalue',
         join: {
           from: `${AGENCYREFERENCE}.agencyReferenceTypeId`,
           to: `${LOOKUPLISTVALUE}.id`
@@ -22,7 +21,7 @@ class AgencyReference extends Model {
       },
       applicant: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Applicant,
+        modelClass: __dirname + '/applicant',
         join: {
           from: `${AGENCYREFERENCE}.applicantId`,
           to: `${APPLICANT}.id`
@@ -30,7 +29,7 @@ class AgencyReference extends Model {
       },
       agency: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Organization,
+        modelClass: __dirname + '/organization',
         join: {
           from: `${AGENCYREFERENCE}.agencyId`,
           to: `${ORGANIZATION}.id`
@@ -39,5 +38,3 @@ class AgencyReference extends Model {
     }
   }
 }
-
-module.exports = { AgencyReference, AGENCYREFERENCE }

@@ -1,17 +1,18 @@
-const Model = require('./baseModel')
-const USER = 'user'
+import Model from './baseModel'
+import { USER } from '../migrations/20190626204616_initialize_schema'
 
-class User extends Model {
-  static get tableName () {
+export default class User extends Model {
+  static get tableName() {
     return USER
   }
 
-  static get relationMappings () {
-    const { Case, CASE } = require('./')
+  static get relationMappings() {
+    // const { Case } = require('./')
+    const { CASE } = require('../migrations/20190626204616_initialize_schema')
     return {
       case: {
         relation: Model.HasManyRelation,
-        modelClass: Case,
+        modelClass: __dirname + '/case',
         join: {
           from: `${USER}.id`,
           to: `${CASE}.investigatorId`
@@ -20,5 +21,3 @@ class User extends Model {
     }
   }
 }
-
-module.exports = { User, USER }

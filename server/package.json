@@ -14,11 +14,15 @@
     "knex": "^0.18.0",
     "objection": "^1.6.9",
     "objection-db-errors": "^1.1.1",
-    "pg": "^7.11.0"
+    "pg": "^7.11.0",
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
+    "@babel/runtime": "^7.5.0",
     "babel-loader": "^8.0.6",
     "dotenv": "^8.0.0",
     "dotenv-webpack": "^1.7.0",

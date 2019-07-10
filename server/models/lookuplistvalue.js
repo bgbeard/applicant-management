@@ -1,22 +1,27 @@
-const Model = require('./baseModel')
-const LOOKUPLISTVALUE = 'lookuplistvalue'
+import Model from './baseModel'
+import { LOOKUPLISTVALUE } from '../migrations/20190626204616_initialize_schema'
 
-class LookuplistValue extends Model {
-  static get tableName () {
+export default class LookuplistValue extends Model {
+  static get tableName() {
     return LOOKUPLISTVALUE
   }
 
-  static get relationMappings () {
-    const { Case, CASE,
-      AgencyReference, AGENCYREFERENCE,
-      PersonalReference, PERSONALREFERENCE,
-      Organization, ORGANIZATION,
-      Lookuplist, LOOKUPLIST } = require('./')
+  static get relationMappings() {
+    // const { Case,
+    //   AgencyReference,
+    //   PersonalReference,
+    //   Organization,
+    //   Lookuplist } = require('./')
+    const { CASE,
+      AGENCYREFERENCE,
+      PERSONALREFERENCE,
+      ORGANIZATION,
+      LOOKUPLIST } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       jobTypes: {
         relation: Model.HasManyRelation,
-        modelClass: Case,
+        modelClass: __dirname + '/case',
         join: {
           from: `${LOOKUPLISTVALUE}.id`,
           to: `${CASE}.jobTypeId`
@@ -24,7 +29,7 @@ class LookuplistValue extends Model {
       },
       caseStatusTypes: {
         relation: Model.HasManyRelation,
-        modelClass: Case,
+        modelClass: __dirname + '/case',
         join: {
           from: `${LOOKUPLISTVALUE}.id`,
           to: `${CASE}.caseStatusTypeId`
@@ -32,7 +37,7 @@ class LookuplistValue extends Model {
       },
       agencyReferenceTypes: {
         relation: Model.HasManyRelation,
-        modelClass: AgencyReference,
+        modelClass: __dirname + '/agencyreference',
         join: {
           from: `${LOOKUPLISTVALUE}.id`,
           to: `${AGENCYREFERENCE}.agencyReferenceTypeId`
@@ -40,7 +45,7 @@ class LookuplistValue extends Model {
       },
       organizationTypes: {
         relation: Model.HasManyRelation,
-        modelClass: Organization,
+        modelClass: __dirname + '/organization',
         join: {
           from: `${LOOKUPLISTVALUE}.id`,
           to: `${ORGANIZATION}.organizationTypeId`
@@ -48,7 +53,7 @@ class LookuplistValue extends Model {
       },
       personalReferenceTypes: {
         relation: Model.HasManyRelation,
-        modelClass: PersonalReference,
+        modelClass: __dirname + '/personalreference',
         join: {
           from: `${LOOKUPLISTVALUE}.id`,
           to: `${PERSONALREFERENCE}.personalReferenceTypeId`
@@ -56,7 +61,7 @@ class LookuplistValue extends Model {
       },
       lookuplist: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Lookuplist,
+        modelClass: __dirname + '/lookuplist',
         join: {
           from: `${LOOKUPLISTVALUE}.lookuplistId`,
           to: `${LOOKUPLIST}.id`
@@ -65,5 +70,3 @@ class LookuplistValue extends Model {
     }
   }
 }
-
-module.exports = { LookuplistValue, LOOKUPLISTVALUE }

@@ -9,7 +9,7 @@ const insertUser = async ({ fname, lname, email, phone }) => {
   try {
     await User.query().insert({ fname, lname, email, phone })
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
 }
 

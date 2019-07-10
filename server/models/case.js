@@ -1,18 +1,19 @@
-const Model = require('./baseModel')
-const CASE = 'case'
+import Model from './baseModel'
+import { CASE } from '../migrations/20190626204616_initialize_schema'
 
-class Case extends Model {
-  static get tableName () {
+export default class Case extends Model {
+  static get tableName() {
     return CASE
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE, Applicant, APPLICANT, Organization, ORGANIZATION, User, USER } = require('./')
+  static get relationMappings() {
+    // const { LookuplistValue, Applicant, Organization, User } = require('./')
+    const { LOOKUPLISTVALUE, APPLICANT, ORGANIZATION, USER } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       jobType: {
         relation: Model.BelongsToOneRelation,
-        modelClass: LookuplistValue,
+        modelClass: __dirname + '/lookuplistvalue',
         join: {
           from: `${CASE}.jobTypeId`,
           to: `${LOOKUPLISTVALUE}.id`
@@ -20,7 +21,7 @@ class Case extends Model {
       },
       applicant: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Applicant,
+        modelClass: __dirname + '/applicant',
         join: {
           from: `${CASE}.applicantId`,
           to: `${APPLICANT}.id`
@@ -28,7 +29,7 @@ class Case extends Model {
       },
       agency: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Organization,
+        modelClass: __dirname + '/organization',
         join: {
           from: `${CASE}.agencyId`,
           to: `${ORGANIZATION}.id`
@@ -36,7 +37,7 @@ class Case extends Model {
       },
       ingestigator: {
         relation: Model.BelongsToOneRelation,
-        modelClass: User,
+        modelClass: __dirname + '/user',
         join: {
           from: `${CASE}.investigatorId`,
           to: `${USER}.id`
@@ -44,7 +45,7 @@ class Case extends Model {
       },
       caseStatusType: {
         relation: Model.BelongsToOneRelation,
-        modelClass: LookuplistValue,
+        modelClass: __dirname + '/lookuplistvalue',
         join: {
           from: `${CASE}.caseStatusTypeId`,
           to: `${LOOKUPLISTVALUE}.id`
@@ -53,5 +54,3 @@ class Case extends Model {
     }
   }
 }
-
-module.exports = { Case, CASE }

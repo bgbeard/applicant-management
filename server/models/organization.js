@@ -1,20 +1,23 @@
-const Model = require('./baseModel')
-const ORGANIZATION = 'organization'
+import Model from './baseModel'
+import { ORGANIZATION } from '../migrations/20190626204616_initialize_schema'
 
-class Organization extends Model {
-  static get tableName () {
+export default class Organization extends Model {
+  static get tableName() {
     return ORGANIZATION
   }
 
-  static get relationMappings () {
-    const { LookuplistValue, LOOKUPLISTVALUE,
-      AgencyReference, AGENCYREFERENCE,
-      Case, CASE } = require('./')
+  static get relationMappings() {
+    // const { LookuplistValue,
+    //   AgencyReference,
+    //   Case } = require('./')
+    const { LOOKUPLISTVALUE,
+      AGENCYREFERENCE,
+      CASE } = require('../migrations/20190626204616_initialize_schema')
 
     return {
       parentOrganization: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Organization,
+        modelClass: __dirname + '/organization',
         join: {
           from: `${ORGANIZATION}.id`,
           to: `${ORGANIZATION}.parentOrganizationId`
@@ -22,7 +25,7 @@ class Organization extends Model {
       },
       organizationType: {
         relation: Model.BelongsToOneRelation,
-        modelClass: LookuplistValue,
+        modelClass: __dirname + '/lookuplistvalue',
         join: {
           from: `${ORGANIZATION}.organizationTypeId`,
           to: `${LOOKUPLISTVALUE}.id`
@@ -30,7 +33,7 @@ class Organization extends Model {
       },
       agencyReferences: {
         relation: Model.HasManyRelation,
-        modelClass: AgencyReference,
+        modelClass: __dirname + '/agencyreference',
         join: {
           from: `${ORGANIZATION}.id`,
           to: `${AGENCYREFERENCE}.organizationId`
@@ -38,7 +41,7 @@ class Organization extends Model {
       },
       cases: {
         relation: Model.HasManyRelation,
-        modelClass: Case,
+        modelClass: __dirname + '/case',
         join: {
           from: `${ORGANIZATION}.id`,
           to: `${CASE}.organizationId`
@@ -47,5 +50,3 @@ class Organization extends Model {
     }
   }
 }
-
-module.exports = { Organization, ORGANIZATION }
