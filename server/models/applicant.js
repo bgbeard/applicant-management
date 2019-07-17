@@ -29,6 +29,7 @@ export default class Applicant extends Model {
 
   static get relationMappings() {
     // const { Case, PersonalReference, AgencyReference } = require('./')
+    const { PersonalReference } = require('./')
     const { CASE, PERSONALREFERENCE, AGENCYREFERENCE } = require('../migrations/20190626204616_initialize_schema')
 
     return {
@@ -42,7 +43,7 @@ export default class Applicant extends Model {
       },
       personalReferences: {
         relation: Model.HasManyRelation,
-        modelClass: __dirname + '/personalreference',
+        modelClass: PersonalReference,
         join: {
           from: `${APPLICANT}.id`,
           to: `${PERSONALREFERENCE}.applicantId`
