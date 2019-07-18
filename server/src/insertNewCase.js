@@ -39,7 +39,7 @@ export const insertReference = async (excelRead) => {
         })
         // console.log(llvs.length)
         //array of LLV objects
-        return llvs[0]
+        return llvs
         // return await transaction(PersonalReference.knex(), async (trx) => {
         //     return (
         //         PersonalReference.query(trx)

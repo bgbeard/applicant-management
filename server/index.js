@@ -11,7 +11,9 @@ try {
     //     .catch(err => console.error(err))
 
     insertReference(fileContent)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+        })
         .catch(err => console.error(err))
 
     // getAllLookuplistValues()
