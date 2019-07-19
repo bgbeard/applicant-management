@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "docxtemplater": "^3.13.6",
+    "jszip": "^2.6.1",
     "knex": "^0.18.0",
     "objection": "^1.6.9",
     "objection-db-errors": "^1.1.1",
