@@ -139,14 +139,14 @@ const s3 = new AWS.S3({
   apiVersion: '2006-03-01'
 });
 /* harmony default export */ __webpack_exports__["default"] = (async (event, context) => {
+  // context.callbackWaitsForEmptyEventLoop = true
   try {
-    context.callbackWaitsForEmptyEventLoop = false;
     console.log('start');
     const params = {
       Bucket: event.Records[0].s3.bucket.name,
       Key: event.Records[0].s3.object.key
     };
-    const stream = s3.getObject(params, (err, data) => {
+    const stream = await s3.getObject(params, (err, data) => {
       console.log('getObject start');
 
       if (err) {
@@ -159,6 +159,7 @@ const s3 = new AWS.S3({
     const newApplicant = xlsx.parseStream(stream);
     console.log(newApplicant);
     console.log('end');
+    return 'end of function';
   } catch (ex) {
     console.error(ex);
   }
