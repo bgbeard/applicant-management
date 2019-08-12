@@ -1,27 +1,25 @@
-const path = require('path')
-const Dotenv = require('dotenv-webpack')
+const slws = require('serverless-webpack')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  mode: 'development',
-  entry: './index.js',
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
-  },
-  plugins: [
-    new Dotenv()
-  ],
-  target: 'node',
-  externals: {
-    knex: 'commonjs knex'
-  }
+    entry: slws.lib.entries,
+    target: 'node',
+    devtool: 'source-map',
+    externals: [nodeExternals()],
+    mode: 'development',
+    optimization: { minimize: false },
+    performance: { hints: false },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                include: __dirname,
+                exclude: /node_modules/
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.json']
+    }
 }

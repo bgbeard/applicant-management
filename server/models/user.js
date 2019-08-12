@@ -6,6 +6,10 @@ export default class User extends Model {
     return USER
   }
 
+  fullName() {
+    return `${this.fname} ${this.lname}`
+  }
+
   static get relationMappings() {
     // const { Case } = require('./')
     const { CASE } = require('../migrations/20190626204616_initialize_schema')

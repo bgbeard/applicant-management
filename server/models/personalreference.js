@@ -21,7 +21,7 @@ export default class PersonalReference extends Model {
           to: `${APPLICANT}.id`
         }
       },
-      personalReferencetype: {
+      personalReferenceType: {
         relation: Model.BelongsToOneRelation,
         modelClass: __dirname + '/lookuplistvalue',
         join: {
