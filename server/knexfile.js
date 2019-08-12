@@ -1,18 +1,21 @@
+require('@babel/register')
 require('dotenv').config()
+const { knexSnakeCaseMappers } = require('objection')
 
-export const knexConfig = {
+module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.CONN
-  }
-}
+    connection: process.env.CONN,
+    ...knexSnakeCaseMappers()
+  },
 
-// module.exports = {
-//   development: {
-//     client: 'pg',
-//     connection: process.env.CONN,
-//     seeds: {
-//       directory: './seeds/dev'
-//     }
-//   }
-// }
+  production: {
+    client: 'pg',
+    connection: process.env.CONN,
+    pool: {
+      min: 2,
+      max: 10
+    },
+    ...knexSnakeCaseMappers()
+  }
+};
