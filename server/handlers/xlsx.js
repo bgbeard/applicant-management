@@ -1,34 +1,49 @@
 const XLSX = require('xlsx')
 
 
-export const parseFile = location => {
+
+export const parseFile = (buffer) => {
+
   try {
-    const relativePath = '.' + location
-    const workbook = XLSX.readFile(relativePath)
-    testSheet(workbook)
-    return applicantData(workbook)
-  }
-  catch (err) {
-    console.error('ERROR in parseFile(): ', err)
+
+    const workbook = XLSX.read(buffer, { type: 'buffer' })
+
+    return read(workbook)
+
+  } catch (ex) {
+
+    console.error('ERROR: parseStream - ', ex)
+
     return false
+
   }
+
 }
 
-const tabs = ['applicant', 'references']
 
-const applicantData = aWorkbook => {
+
+const tabs = ['applicant']
+
+
+
+const read = (workbook) => {
+
   try {
+
     return tabs.reduce((result, tab) => ({
-      ...result,
-      [tab]: XLSX.utils.sheet_to_json(aWorkbook.Sheets[tab])
-    }), {})
-  }
-  catch (err) {
-    console.error('ERROR in applicantData(): ', err)
-    return false
-  }
-}
 
-const testSheet = (aWorkbook) => {
-  aWorkbook.SheetNames.forEach(sheet => console.log(sheet))
+      ...result,
+
+      [tab]: XLSX.utils.sheet_to_json(workbook.Sheets[tab])
+
+    }), {})
+
+  } catch (ex) {
+
+    console.error('ERROR: read - ', ex)
+
+    return false
+
+  }
+
 }
