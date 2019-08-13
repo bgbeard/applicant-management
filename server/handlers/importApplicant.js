@@ -6,7 +6,7 @@ AWS.config.update({ region: 'us-west-1' })
 const HOME = 'C:/Users/beard'
 const IS_LOCAL = false
 
-const tmpFile = async ({ bucket, key }) => {
+const tmpFile = ({ bucket, key }) => (new Promise((resolve, reject) => {
   try {
     const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
     const filePath = IS_LOCAL ? `${HOME}/Desktop` : '/tmp'
@@ -18,16 +18,17 @@ const tmpFile = async ({ bucket, key }) => {
       Bucket: bucket,
       Key: key
     }
-    await s3.getObject(params)
+    s3.getObject(params)
       .createReadStream()
       .pipe(file)
 
-    return location
+    resolve(location)
   } catch (err) {
     console.error('ERROR: ', err)
-    return false
+    reject(false)
   }
-}
+})
+)
 
 export default async (event, context) => {
   try {
