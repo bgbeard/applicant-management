@@ -28,7 +28,7 @@ const getDataBuffer = async ({ bucket, key }) => {
 
     const filePath = IS_LOCAL ? `${HOME}/Desktop` : '/tmp'
 
-    const fileName = 'stream'
+    const fileName = 'stream.xlsx'
 
     const location = `${filePath}/${fileName}`
 
