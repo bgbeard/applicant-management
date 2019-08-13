@@ -6,7 +6,7 @@ export const parseFile = (buffer) => {
 
   try {
 
-    const workbook = XLSX.read(buffer, { type: 'buffer' })
+    const workbook = XLSX.readFile(buffer)
 
     return read(workbook)
 
