@@ -18,7 +18,7 @@ const tmpFile = async ({ bucket, key }) => {
       Bucket: bucket,
       Key: key
     }
-    s3.getObject(params)
+    await s3.getObject(params)
       .createReadStream()
       .pipe(file)
 

@@ -3,8 +3,7 @@ const XLSX = require('xlsx')
 
 export const parseFile = location => {
   try {
-    const relativePath = '.' + location
-    const workbook = XLSX.readFile(relativePath)
+    const workbook = XLSX.readFile(location)
     testSheet(workbook)
     return applicantData(workbook)
   }
