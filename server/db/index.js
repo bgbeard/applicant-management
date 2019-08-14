@@ -13,5 +13,5 @@ const knex = Knex(knexConfig)
 Model.knex(knex)
 
 module.exports = {
-  ...require('./excelImport')
+  ...require('./addApplicant')
 }

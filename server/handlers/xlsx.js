@@ -4,7 +4,6 @@ const XLSX = require('xlsx')
 export const parseFile = location => {
   try {
     const workbook = XLSX.readFile(location)
-    testSheet(workbook)
     return applicantData(workbook)
   }
   catch (err) {
@@ -26,8 +25,4 @@ const applicantData = aWorkbook => {
     console.error('ERROR in applicantData(): ', err)
     return false
   }
-}
-
-const testSheet = (aWorkbook) => {
-  aWorkbook.SheetNames.forEach(sheet => console.log(sheet))
 }
