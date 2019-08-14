@@ -3,14 +3,13 @@ const AWS = require('aws-sdk')
 const fs = require('fs')
 AWS.config.update({ region: 'us-west-1' })
 
-const HOME = 'C:/Users/beard'
-const IS_LOCAL = false
+const { home, isLocal } = require('../config')
 
 const tmpFile = ({ bucket, key }) =>
   (new Promise((resolve, reject) => {
     try {
       const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
-      const filePath = IS_LOCAL ? `${HOME}/Desktop` : '/tmp'
+      const filePath = isLocal ? `${home}/Desktop` : '/tmp'
       const fileName = 'stream.xlsx'
       const location = `${filePath}/${fileName}`
       const file = fs.createWriteStream(location)
