@@ -1,33 +1,51 @@
-const xlsx = require('../helpers/xlsxReader')
+const xlsx = require('./xlsx')
 const AWS = require('aws-sdk')
+const fs = require('fs')
 AWS.config.update({ region: 'us-west-1' })
-const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
+
+const HOME = 'C:/Users/beard'
+const IS_LOCAL = false
+
+const tmpFile = ({ bucket, key }) =>
+  (new Promise((resolve, reject) => {
+    try {
+      const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
+      const filePath = IS_LOCAL ? `${HOME}/Desktop` : '/tmp'
+      const fileName = 'stream.xlsx'
+      const location = `${filePath}/${fileName}`
+      const file = fs.createWriteStream(location)
+
+      const params = {
+        Bucket: bucket,
+        Key: key
+      }
+      s3.getObject(params)
+        .createReadStream()
+        .pipe(file)
+        .on('close', () => resolve(location))
+
+    } catch (err) {
+      console.error('ERROR in tmpFile(): ', err)
+      reject(false)
+    }
+  })
+  )
 
 export default async (event, context) => {
-  // context.callbackWaitsForEmptyEventLoop = true
   try {
-    console.log('start')
-    const params = {
-      Bucket: event.Records[0].s3.bucket.name,
-      Key: event.Records[0].s3.object.key
-    }
-    const stream = await s3.getObject(params, (err, data) => {
-      console.log('getObject start')
-      if (err) {
-        console.error('ERROR: ', err)
-      } else {
-        console.log('data running')
-      }
-    }).createReadStream()
-    console.log('stream created')
-    const newApplicant = xlsx.parseStream(stream)
-    console.log(newApplicant)
-    console.log('end')
-    return 'end of function'
+    const bucket = event.Records[0].s3.bucket.name
+    const key = event.Records[0].s3.object.key
+
+    const tmpLocation = await tmpFile({ bucket, key })
+    if (!tmpLocation) return false //to do: send error email
+
+    const newApplicant = xlsx.parseFile(tmpLocation)
+    console.log({ newApplicant })
+
+    return newApplicant ? 'SUCCESS' : 'FAIL'
   }
-  catch (ex) {
-    console.error(ex)
+  catch (err) {
+    console.error('ERROR: ', err)
+    //to do: send error email
   }
 }
-
-// const filePath = `https://import-applicant.s3-us-west-1.amazonaws.com/${event.Records[0].s3.object.key}`
